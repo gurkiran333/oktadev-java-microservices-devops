@@ -54,4 +54,8 @@ Please post any questions as comments on this example's blog post, or on the Okt
 
 License
 
+<<<<<<< HEAD
 Apache 2.0, see LICENSE.
+=======
+Apache 2.0, see LICENSE.
+>>>>>>> origin/main
