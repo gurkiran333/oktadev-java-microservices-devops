@@ -9,6 +9,7 @@ pipeline {
 
         stage('Build Maven') {
             steps {
+                dir('spring-boot+cloud') {
                 sh 'mvn clean install -DskipTests'
             }
         }
