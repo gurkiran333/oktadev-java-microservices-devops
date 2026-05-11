@@ -9,6 +9,7 @@ pipeline {
 
         stage('Build Maven') {
             steps {
+                dir('spring-cloud-gateway') {
                 sh 'mvn clean install -DskipTests'
             }
         }
