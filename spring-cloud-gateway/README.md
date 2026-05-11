@@ -1,188 +1,57 @@
-# Java Microservices DevOps Project
+Secure Reactive Microservices with Spring Cloud Gateway 🔐
 
-A production-grade Java Microservices architecture built using Spring Boot and modern DevOps tools including Docker, Kubernetes, Jenkins CI/CD, and AWS.
+This example is built with Spring Cloud Gateway and Spring WebFlux to show reactive microservices. See Secure Reactive Microservices with Spring Cloud Gateway to how it was created.
 
----
+Prerequisites: Java 11 and an internet connection.
 
-## 🚀 Project Overview
+Getting Started
+Links
+Help
+License
+Getting Started
 
-This project demonstrates a complete enterprise-level microservices ecosystem with automated CI/CD pipelines, containerization, orchestration, and cloud deployment.
+To install this example, run the following commands:
 
-The application follows modern cloud-native architecture principles and showcases how scalable microservices are developed and deployed in real-world production environments.
+git clone https://github.com/oktadev/java-microservices-examples.git
+cd java-microservices-examples/spring-cloud-gateway
+The api-gateway and car-service projects are already pre-configured to be locked down with OAuth 2.0 and Okta. That means if you try to run them, you won't be able to login until you create an account, and an application in it.
 
----
+If you already have an Okta account, see the Create a Web Application in Okta section below. Otherwise, we created a Maven plugin that configures a free Okta developer account + an OIDC app (in under a minute!).
 
-# 🏗️ Architecture
+To use it, run ./mvnw com.okta:okta-maven-plugin:setup to create an account and configure the gateway to work with Okta.
 
-```text
-Client
-   │
-   ▼
-API Gateway
-   │
-   ▼
-Service Discovery (Eureka)
-   │
-   ├── User Service
-   ├── Order Service
-   ├── Product Service
-   └── Notification Service
-          │
-          ▼
-     Database Layer
+Copy the okta.* properties from the gateway's src/main/resources/application.properties to the same file in the car-service project.
 
-CI/CD Pipeline:
-GitHub → Jenkins → Docker → Kubernetes
+Then, run all the projects with ./mvnw in separate terminal windows. You should be able to navigate to http://localhost:8761 and see the apps have been registered with Eureka.
 
-⚙️ Tech Stack
+Then, navigate to http://localhost:8080/cars in your browser, log in with Okta, and see the resulting JSON.
 
-Backend
-Java 17
+Create a Web Application in Okta
+
+Log in to your Okta Developer account (or sign up if you don't have an account).
+
+From the Applications page, choose Add Application.
+On the Create New Application page, select Web.
+Give your app a memorable name, add http://localhost:8080/login/oauth2/code/okta as a Login redirect URI and click Done.
+Copy the issuer (found under API > Authorization Servers), client ID, and client secret into the application.properties of the api-gateway and car-service projects.
+
+okta.oauth2.issuer=https://{yourOktaDomain}/oauth2/default
+okta.oauth2.client-id=$clientId
+okta.oauth2.client-secret=$clientSecret
+Links
+
+These examples uses the following open source libraries:
+
+Okta Spring Boot Starter
 Spring Boot
 Spring Cloud
+Spring Cloud Gateway
 Spring Security
-REST APIs
-Microservices Components
-Eureka Discovery Server
-API Gateway
-Config Server
-Load Balancer
-DevOps Tools
-Docker
-Kubernetes
-Jenkins
-GitHub Actions
-Maven
-Cloud & Infrastructure
-AWS EC2
-Docker Hub
-Database
-MySQL
-PostgreSQL
+OpenJDK
+Help
 
-📦 Microservices Included
+Please post any questions as comments on this example's blog post, or on the Okta Developer Forums.
 
-Service	Description
-API Gateway	Centralized entry point for all APIs
-Discovery Service	Eureka server for service registration
-User Service	Handles user operations
-Order Service	Manages order processing
-Product Service	Product management APIs
-Notification Service	Email/notification handling
+License
 
-✨ Features
-
-Microservices Architecture
-API Gateway Routing
-Service Discovery
-Centralized Configuration
-Dockerized Services
-Kubernetes Deployment
-Jenkins CI/CD Pipeline
-Scalable Cloud Deployment
-Fault Tolerant Design
-Production-Ready Structure
-
-📂 Project Structure
-
-java-microservices-devops-project/
-│
-├── api-gateway/
-├── discovery-service/
-├── config-server/
-├── user-service/
-├── order-service/
-├── product-service/
-├── notification-service/
-│
-├── docker/
-├── kubernetes/
-├── jenkins/
-├── terraform/
-│
-├── screenshots/
-└── README.md
-
-🐳 Docker Setup
-
-Build Docker Images
-docker build -t user-service .
-Run Container
-docker run -p 8080:8080 user-service
-
-☸️ Kubernetes Deployment
-
-Apply Kubernetes Files
-kubectl apply -f kubernetes/
-Check Pods
-kubectl get pods
-Check Services
-kubectl get svc
-
-🔄 Jenkins CI/CD Pipeline
-
-The CI/CD pipeline automates:
-Code Checkout
-Maven Build
-Unit Testing
-Docker Image Creation
-Docker Hub Push
-Kubernetes Deployment
-
-☁️ AWS Deployment
-
-This project can be deployed on:
-AWS EC2
-AWS EKS
-AWS Load Balancer
-
-🔐 Security
-
-Spring Security
-Secure API Communication
-Environment Variable Configuration
-Container Isolation
-
-🧪 Running Locally
-
-Clone Repository
-git clone https://github.com/YOUR_USERNAME/java-microservices-devops-project.git
-Navigate to Project
-cd java-microservices-devops-project
-Build Project
-mvn clean install
-Run Services
-mvn spring-boot:run
-
-📸 Screenshots
-
-Add screenshots inside the screenshots/ folder.
-
-Example:
-
-Jenkins Pipeline
-Kubernetes Pods
-Docker Containers
-
-📈 Future Enhancements
-
-Helm Charts
-ArgoCD GitOps
-Terraform Automation
-Kafka Integration
-Service Mesh (Istio)
-
-🤝 Contributing
-Contributions are welcome.
-Fork the repository and submit a pull request.
-
-👨‍💻 Author
-Gurkiran Singh
-Software Developer | DevOps Engineer | Java Microservices Enthusiast
-GitHub: https://github.com/gurkiran333
-
-⭐ Support
-If you found this project useful, give it a ⭐ on GitHub.
-
-📄 License
-This project is licensed under the MIT License.
+Apache 2.0, see LICENSE.
