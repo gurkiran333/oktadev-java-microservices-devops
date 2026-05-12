@@ -20,7 +20,7 @@ services:
     build: ./api-gateway
     container_name: api-gateway
     ports:
-      - "8080:8080"
+      - "8081:8081"
     depends_on:
       - discovery-service
       - car-service
