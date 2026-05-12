@@ -10,26 +10,33 @@ pipeline {
         stage('Build Maven') {
             steps {
                 dir('spring-boot+cloud') {
-                sh 'mvn clean install -DskipTests'
+                    sh 'mvn clean install -DskipTests'
+                }
             }
-          }
         }
 
         stage('Build Docker Images') {
             steps {
-                sh 'docker-compose build'
+                dir('spring-boot+cloud') {
+                    sh 'ls -la'
+                    sh 'docker-compose build'
+                }
             }
         }
 
         stage('Run Containers') {
             steps {
-                sh 'docker-compose up -d'
+                dir('spring-boot+cloud') {
+                    sh 'docker-compose up -d'
+                }
             }
         }
 
         stage('Verify Running Containers') {
             steps {
-                sh 'docker ps'
+                dir('spring-boot+cloud') {
+                    sh 'docker ps'
+                }
             }
         }
     }
